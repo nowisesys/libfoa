@@ -41,7 +41,8 @@ noinst_PROGRAMS = init_libfoa$(EXEEXT) decode_simple_array$(EXEEXT) \
 	decode_error$(EXEEXT) decode_large_object$(EXEEXT) \
 	decode_stream$(EXEEXT) decode_large_stream$(EXEEXT) \
 	decode_callback$(EXEEXT) write_array_buffer$(EXEEXT) \
-	write_array_stream$(EXEEXT)
+	write_array_stream$(EXEEXT) escape_buffer$(EXEEXT) \
+	set_mode$(EXEEXT)
 subdir = example
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -98,9 +99,15 @@ encode_object_LDADD = $(LDADD)
 am_encode_stream_OBJECTS = encode_stream.$(OBJEXT)
 encode_stream_OBJECTS = $(am_encode_stream_OBJECTS)
 encode_stream_LDADD = $(LDADD)
+am_escape_buffer_OBJECTS = escape_buffer.$(OBJEXT)
+escape_buffer_OBJECTS = $(am_escape_buffer_OBJECTS)
+escape_buffer_LDADD = $(LDADD)
 am_init_libfoa_OBJECTS = init_libfoa.$(OBJEXT)
 init_libfoa_OBJECTS = $(am_init_libfoa_OBJECTS)
 init_libfoa_LDADD = $(LDADD)
+am_set_mode_OBJECTS = set_mode.$(OBJEXT)
+set_mode_OBJECTS = $(am_set_mode_OBJECTS)
+set_mode_LDADD = $(LDADD)
 am_write_array_buffer_OBJECTS = write_array_buffer.$(OBJEXT)
 write_array_buffer_OBJECTS = $(am_write_array_buffer_OBJECTS)
 write_array_buffer_LDADD = $(LDADD)
@@ -126,7 +133,8 @@ SOURCES = $(decode_callback_SOURCES) $(decode_error_SOURCES) \
 	$(decode_simple_array_SOURCES) $(decode_simple_object_SOURCES) \
 	$(decode_stream_SOURCES) $(decode_unordered_object_SOURCES) \
 	$(encode_buffer_SOURCES) $(encode_object_SOURCES) \
-	$(encode_stream_SOURCES) $(init_libfoa_SOURCES) \
+	$(encode_stream_SOURCES) $(escape_buffer_SOURCES) \
+	$(init_libfoa_SOURCES) $(set_mode_SOURCES) \
 	$(write_array_buffer_SOURCES) $(write_array_stream_SOURCES)
 DIST_SOURCES = $(decode_callback_SOURCES) $(decode_error_SOURCES) \
 	$(decode_hashed_array_SOURCES) $(decode_hashed_object_SOURCES) \
@@ -135,7 +143,8 @@ DIST_SOURCES = $(decode_callback_SOURCES) $(decode_error_SOURCES) \
 	$(decode_simple_array_SOURCES) $(decode_simple_object_SOURCES) \
 	$(decode_stream_SOURCES) $(decode_unordered_object_SOURCES) \
 	$(encode_buffer_SOURCES) $(encode_object_SOURCES) \
-	$(encode_stream_SOURCES) $(init_libfoa_SOURCES) \
+	$(encode_stream_SOURCES) $(escape_buffer_SOURCES) \
+	$(init_libfoa_SOURCES) $(set_mode_SOURCES) \
 	$(write_array_buffer_SOURCES) $(write_array_stream_SOURCES)
 ETAGS = etags
 CTAGS = ctags
@@ -267,6 +276,8 @@ decode_large_stream_SOURCES = decode_large_stream.c
 decode_callback_SOURCES = decode_callback.c
 write_array_buffer_SOURCES = write_array_buffer.c
 write_array_stream_SOURCES = write_array_stream.c
+escape_buffer_SOURCES = escape_buffer.c
+set_mode_SOURCES = set_mode.c
 all: all-am
 
 .SUFFIXES:
@@ -349,9 +360,15 @@ encode_object$(EXEEXT): $(encode_object_OBJECTS) $(encode_object_DEPENDENCIES)
 encode_stream$(EXEEXT): $(encode_stream_OBJECTS) $(encode_stream_DEPENDENCIES) 
 	@rm -f encode_stream$(EXEEXT)
 	$(LINK) $(encode_stream_OBJECTS) $(encode_stream_LDADD) $(LIBS)
+escape_buffer$(EXEEXT): $(escape_buffer_OBJECTS) $(escape_buffer_DEPENDENCIES) 
+	@rm -f escape_buffer$(EXEEXT)
+	$(LINK) $(escape_buffer_OBJECTS) $(escape_buffer_LDADD) $(LIBS)
 init_libfoa$(EXEEXT): $(init_libfoa_OBJECTS) $(init_libfoa_DEPENDENCIES) 
 	@rm -f init_libfoa$(EXEEXT)
 	$(LINK) $(init_libfoa_OBJECTS) $(init_libfoa_LDADD) $(LIBS)
+set_mode$(EXEEXT): $(set_mode_OBJECTS) $(set_mode_DEPENDENCIES) 
+	@rm -f set_mode$(EXEEXT)
+	$(LINK) $(set_mode_OBJECTS) $(set_mode_LDADD) $(LIBS)
 write_array_buffer$(EXEEXT): $(write_array_buffer_OBJECTS) $(write_array_buffer_DEPENDENCIES) 
 	@rm -f write_array_buffer$(EXEEXT)
 	$(LINK) $(write_array_buffer_OBJECTS) $(write_array_buffer_LDADD) $(LIBS)
@@ -379,7 +396,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/encode_buffer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/encode_object.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/encode_stream.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/escape_buffer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/init_libfoa.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/set_mode.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/write_array_buffer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/write_array_stream.Po@am__quote@
 
