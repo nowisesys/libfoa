@@ -3,24 +3,23 @@
 ** GENERAL:
 
    This is a library implementation of the FOA encoding, an encoding
-   specially designed to be an alternative to XML for data exchange
-   between web services. It can also useful as a general encoding
+   designed to be used as an alternative to XML for data exchange
+   between i.e. web services. It can also useful as a general encoding
    format similar to JSON.
 
 ** LICENSE:
 
    This FOA library is released under the Lesser GNU General Public License
-   (LGPL). Thus you are allowed to use it in commercial applications.
-   
+   (LGPL). That means you are allowed to use it in commercial applications.    
    However, as a free software developer I encourage you to release your 
    software under GPL or similar licenses.
 
 ** DESIGN:
 
-   The FOA encoding was designed to be used as an object and array streaming
-   algorithm providing efficient transfer of data between networked
-   computers. It's memory footprint is small because it will never use more
-   memory than required by you longest single line of data to decode.
+   The FOA encoding was designed to efficient encode and decode objects and 
+   arrays thats transfered between networked computers. It's memory footprint 
+   is small, it will never use more memory than required by you longest single
+   line of data to decode.
 
 ** VALIDATION:
 
@@ -34,8 +33,8 @@
    to denote the start and end of encoded object and arrays. See doc/README.FOA 
    for more information. 
    
-   Another special char is the assignment '=' that is used to name objects
-   and arrays, as well as support named simple data. In some way this is
-   used to support data structures like Perl or PHP hashes.
-
+   The assignment '=' character is another special char that is used to name
+   data, objects and arrays. By naming data its possible to support exchange
+   of data structures, like Perl or PHP hashes.
+   
 // Anders Lövgren, 2009-02-13
