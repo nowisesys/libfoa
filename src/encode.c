@@ -20,8 +20,14 @@
 #endif
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#ifdef HAVE_STDLIB_H
+# include <stdlib.h>
+#endif
+#ifdef HAVE_STRING_H
+# include <string.h>
+#elif HAVE_STRINGS_H
+# include <strings.h>
+#endif
 
 #include "libfoa.h"
 #include "internal.h"
