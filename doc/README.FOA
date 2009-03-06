@@ -1,0 +1,62 @@
+** Encoding objects and arrays in FOA **
+
+** EXAMPLES:
+
+   Here are some example of encoding arrays and objects:
+   
+     struct person
+     {
+         int age;
+         const char *name;
+     };
+   
+     struct person someone = { 32, "Ceasar" };
+   
+   The person object gets encoded as:
+   
+     (
+     32
+     Ceasar
+     )
+   
+   Now consider an array:
+   
+     const char **names = { "Adam", "Bertil" };     /* C */
+
+   This gets encoded as:
+     
+     [
+     Adam
+     Bertil
+     ]
+     
+   It's also possible to nest objects and arrays within each other. Heres
+   an example of an array of persons:
+   
+     struct person register[] = {{ 41, "David" }, { 28, "Erik" }};
+     
+   This gets encoded as:
+   
+     [
+     (
+     41
+     David
+     )
+     (
+     28
+     Erik
+     )
+     ]
+
+** SPECIAL CHARACTERS:
+
+   If your exchanged data will possibly contain one of the special 
+   characters "([])", then these can be encoded as well. FOA uses HTTP
+   encoding scheme for these:
+   
+     ( -> %28
+     [ -> %5B
+     ] -> %5D
+     ) -> %29
+
+// Anders Lövgren, 2009-02-13

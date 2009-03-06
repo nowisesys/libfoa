@@ -1,0 +1,174 @@
+.TH "LIBFOA" "3" "2009-03-06" "QNET" ""
+\" This manual page is under GNU general public license (GPL).
+\" Copyright (C) 2009 Anders Lövgren
+.SH NAME
+C library implementing FOA - Fast Object and Array encoding/decoding
+
+.SH SYNOPSIS
+\fB#include <libfoa.h>\fR        /* standard API */
+.br
+\fB#include <libfoa-utils.h>\fR  /* utility API */
+
+.SH DESCRIPTION
+.PP
+This is a library implementation of the FOA encoding, designed to be an 
+alternative to XML for data exchange between web services. It can also useful
+as a general encoding format similar to JSON.
+.PP
+The memory footprint of the library is small because it will never use more 
+memory than required to hold the longest single line of data to decode.
+.PP
+The library can decode or encoded data using either a memory buffer (char *) 
+or an file stream (FILE *). No validation is performed except for some 
+rudimentary checks. The library itself is thread safe.
+
+.SH TYPES
+This section briefly describes the FOA encoding. Each encoded line contains
+either data (could be members of an array or an object) or special chars. Each 
+special char or data item must be followed by a newline (\\n) character. The 
+special chars are 
+.B '(' 
+(begin object),
+.B '[' 
+(begin array),
+.B ']' 
+(end array) and
+.B ')' 
+(end object).
+.PP
+Each data, array or object can also be named by 'name = type'. We call this
+for naming the item. Arrays and objects can be unlimited nested in each other.
+.PP
+.B Syntax:
+.PP
+.br 
+item := (name '=' data | data) + '\\n'
+.br 
+data := text | spec
+.br 
+name := text - '='
+.br 
+text := any char
+.br 
+spec := ([])
+.br 
+
+.SH OPTIONS
+The libfoa structure is opaque. You are not supposed to peek inside it.
+.TP
+.B foa_init(struct libfoa *foa);
+Initilize library usage. Returns 0 if successful and -1 on error.
+.TP
+.B void foa_cleanup(struct libfoa *foa);
+Cleanup after finished. This function should only be called when done with
+the library.
+.TP
+.B void foa_alloc_strategy(size_t step, size_t max);
+Defines the memory allocation strategy. The step variable defines how
+aggressive memory is allocated. The max variable sets a maximum
+buffer size in bytes (use 0 for unlimited).
+.TP
+.B void foa_set_callback(struct libfoa *foa, foa_handler func, void *arg);
+Use callback function to handle data seen. The optional arg get
+passed along together with each call to func.
+.TP 
+.B void foa_set_stream(struct libfoa *foa, FILE *file);
+Set a file stream for reading and writing.
+.TP
+.B void foa_set_buffer(struct libfoa *foa, const char *input);
+Sets the input buffer for memory reading. You can't set the buffer for writing,
+its handled internal.
+.TP 
+.B void foa_set_mode(struct libfoa *foa, int mode, int enable);
+Sets the current mode for escaping of special chars and whether to support
+named data. Turning of escaping will improve performance, but you must be
+sure that data items (text) will never contain any special chars '([])'.
+.TP 
+.B void foa_get_mode(struct libfoa *foa, int mode, int *enable);
+Get current mode for escaping and named data (hashes). The mode argument is
+either FOA_MODE_ESCAPE or FOA_MODE_HASHES.
+.TP 	
+.B int foa_scan(struct libfoa *foa);
+Decode the input using the registered callback function for each item in
+input. Returns 0 when input data has been successful processed and -1 on
+error.
+.TP
+.B const struct foa_entity * foa_next(struct libfoa *foa);
+Decode the input iterative. This is an alternative to using the foa_scan() 
+function. Returns the next entity or NULL on error.
+.TP
+.B const char * foa_write(struct libfoa *foa, int append, int type, 
+			      const char *name, const char *data);
+Write data to memory buffer or file stream. If append is true, then data is 
+appended (only for memory buffer), otherwise the memory buffer is overwritten.
+The type is one of FOA_TYPE_XXX. Use NULL as name to write anonymous data. 
+Returns the encoded string on success and NULL on error.
+
+.SH ERRORS
+.TP 
+.B const char * foa_last_error(struct libfoa *foa);
+Get last error message.
+.TP 
+.B int foa_error_set(struct libfoa *foa);
+Returns true if error is set.
+.TP 
+.B void foa_reset_error(struct libfoa *foa);
+Clear the stored error message.
+
+.SH EXAMPLE
+An simple example showing how to decode data from a file stream:
+.RS
+.nf
+
+#include <stdio.h>
+#include <libfoa.h>
+
+int main(int argc, char **argv)
+{
+    struct libfoa foa;
+    const struct foa_entity *ent;
+    FILE *fs;
+				     
+    if(foa_init(&foa) < 0) {
+        fprintf(stderr, "failed initilize libfoa: %s\\n", foa_last_error(&foa));
+        return 1;
+    }
+    
+    fs = fopen(argv[1], "r");
+    if(!fs) {
+        fprintf(stderr, "failed open %s for reading\\n", argv[1]);
+        return 1;
+    }
+
+    foa_set_stream(&foa, fs);
+    while((ent = foa_next(&foa))) {
+        switch(ent->type) {
+        case FOA_TYPE_DATA_ENTITY:
+            if(ent->name)
+                printf("%s: %s\\n", ent->name, ent->data);
+            else
+                printf("data: %s\\n", ent->data);
+            break;
+        default:
+            printf("spec: %s\\n", ent->data);
+            break;
+        }
+    }
+	  
+    fclose(fs);
+    foa_cleanup(&foa);
+			  
+    return 0;
+}				  
+.RE
+.fi
+
+.SH NOTES
+Full lenght examples of encoding/decoding and more documentation of the FOA
+format is distributed with the source code.
+
+.SH BUGS
+Probably, if you find one, send an bug report to lespaul@algonet.se
+
+.SH AUTHOR
+Anders Lövgren
