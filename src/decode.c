@@ -27,6 +27,12 @@
 #include "libfoa.h"
 #include "internal.h"
 
+struct http_encode
+{
+	const char *str;
+	char rep;
+};
+
 /* 
  * Find first block of whitespace characters and eat them.
  */
@@ -38,6 +44,32 @@ static inline char * eat_white(char *str)
 }
 
 /* 
+ * Get unescaped character from HTTP encoded character. The str
+ * is pointing to at start of an '%NN' substring. Returns the
+ * unescaped character or 0 if no matching unescaped character 
+ * exists.
+ */
+static char get_unescaped_char(const char *str)
+{
+	static struct http_encode encode[] = {
+		{ FOA_ENCODE_BEGIN_OBJECT, FOA_TYPE_START_OBJECT },
+		{ FOA_ENCODE_BEGIN_ARRAY,  FOA_TYPE_START_ARRAY },
+		{ FOA_ENCODE_END_OBJECT,   FOA_TYPE_END_OBJECT },
+		{ FOA_ENCODE_END_ARRAY,    FOA_TYPE_END_ARRAY },
+		{ FOA_ENCODE_NAME_DATA,    FOA_TYPE_NAME_DATA },
+		{ NULL, 0 }
+	};
+	struct http_encode *ptr;
+	
+	for(ptr = encode; ptr->str; ++ptr) {
+		if(strncmp(ptr->str, str, 3) == 0) {
+			break;
+		}
+	}
+	return ptr->rep;
+}
+
+/* 
  * Decode the entity in foa->buff and update foa->entity. 
  * The buffer contains either:
  * 
@@ -46,6 +78,9 @@ static inline char * eat_white(char *str)
  * 3. Named data on form "name = data", where data itself can be 
  *    one of the special chars, i.e. "name = (". Note that strings 
  *    like "name = ]" is illegal.
+ * 
+ * The data might be escaped, that is, all '([])=' might have been
+ * encoded as HTTP encoded characters.
  */
 void decode_entity(struct libfoa *foa) 
 {
@@ -64,7 +99,7 @@ void decode_entity(struct libfoa *foa)
 		/* 
 		 * We got "name = data":
 		 */
-		if(foa->hashes != 1) {
+		if(!foa->hashes) {
 			foa->entity.data = "named data is not allowed";
 			foa->entity.type = FOA_TYPE_ERROR_MESSAGE;
 			return;
@@ -107,6 +142,21 @@ void decode_entity(struct libfoa *foa)
 			return;
 		}
 		foa->entity.type = *foa->buff;
+	}
+	
+	if(foa->escape && foa->entity.type == FOA_TYPE_DATA_ENTITY) {
+		if(strchr(foa->entity.data, '%')) {
+			/* 
+			 * We might have at least one escaped character. 
+			 */
+			char enc;
+			for(pp = (char *)foa->entity.data; pp; pp = strchr(pp + 1, '%')) {
+				if((enc = get_unescaped_char(pp)) != 0) {
+					*pp = enc;
+					memmove(pp + 1, pp + 3, strlen(pp));
+				}
+			}
+		}
 	}
 
 	if((pp = strchr(foa->entity.data, '\n'))) *pp = '\0';

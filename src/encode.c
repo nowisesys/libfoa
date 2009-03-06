@@ -45,6 +45,11 @@ const char * foa_write(struct libfoa *foa, int append, int type,
 			logerr(&foa->errmsg, 0, "named data is not allowed");
 			return NULL;
 		}
+		if(strchr(name, FOA_TYPE_NAME_DATA)) {
+			logerr(&foa->errmsg, 0, "'%c' is not allowed inside name", 
+			       FOA_TYPE_NAME_DATA);
+			return NULL;
+		}
 		need += strlen(name) + 3;    /* 'name = ' */
 	}
 	
@@ -61,9 +66,9 @@ const char * foa_write(struct libfoa *foa, int append, int type,
 			return NULL;
 		}
 		need += strlen(data);
-		if(strpbrk(data, FOA_TYPE_SPEC_CHARS) == NULL &&
-		   strchr(data,  FOA_TYPE_NAME_DATA)  == NULL) {
-			doesc = 0;
+		if(strpbrk(data, FOA_TYPE_SPEC_CHARS) != NULL ||
+		   strchr(data,  FOA_TYPE_NAME_DATA)  != NULL) {
+			doesc = 1;
 		}
 		if(doesc) {
 			for(pp = data; *pp; ++pp) {
@@ -71,14 +76,9 @@ const char * foa_write(struct libfoa *foa, int append, int type,
 				   (*pp == FOA_TYPE_START_OBJECT ||
 				    *pp == FOA_TYPE_START_ARRAY ||
 				    *pp == FOA_TYPE_END_OBJECT ||
-				    *pp == FOA_TYPE_END_ARRAY)) {
+				    *pp == FOA_TYPE_END_ARRAY ||
+				    *pp == FOA_TYPE_NAME_DATA)) {
 					need += 2;
-				} else if(foa->hashes && 
-					  (pp[0] == FOA_TYPE_ASSIGNMENT && 
-					   pp[1] == FOA_TYPE_GREATER_THAN)) {
-					if(foa->hashes) {
-						need += 6;
-					}
 				}
 			}
 		}
@@ -114,8 +114,7 @@ const char * foa_write(struct libfoa *foa, int append, int type,
 	}
 	if(need == 2) {      /* one of ([]) */
 		foa->used += sprintf(foa->buff + foa->used, "%c", type);
-	}
-	else {
+	} else {
 		if(!doesc || (!foa->escape && !foa->hashes)) {
 			foa->used += sprintf(foa->buff + foa->used, "%s", data);
 		} else {
@@ -124,16 +123,11 @@ const char * foa_write(struct libfoa *foa, int append, int type,
 				   (*pp == FOA_TYPE_START_OBJECT ||
 				    *pp == FOA_TYPE_START_ARRAY ||
 				    *pp == FOA_TYPE_END_OBJECT ||
-				    *pp == FOA_TYPE_END_ARRAY)) {
+				    *pp == FOA_TYPE_END_ARRAY || 
+				    *pp == FOA_TYPE_NAME_DATA)) {
 					foa->used += sprintf(foa->buff + foa->used, 
 							     "%%%X", 
 							     *pp);
-				} else if(foa->hashes && 
-					  (pp[0] == FOA_TYPE_ASSIGNMENT && 
-					   pp[1] == FOA_TYPE_GREATER_THAN)) {
-					foa->used += sprintf(foa->buff + foa->used, 
-							     "%%%X%%%X", 
-							     pp[0], pp[1]);
 				} else {
 					foa->used += sprintf(foa->buff + foa->used,
 							     "%c", *pp);
