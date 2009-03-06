@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: libfoa
+Description: C library implementing Fast Object and Array encoding/decoding
+URL: http://www.algonet.se/~lespaul/proj/libfoa
+Version: @VERSION@
+Requires: 
+Libs: -L${libdir} -lfoa
+Cflags:
