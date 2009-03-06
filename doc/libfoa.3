@@ -12,7 +12,7 @@ C library implementing FOA - Fast Object and Array encoding/decoding
 .SH DESCRIPTION
 .PP
 This is a library implementation of the FOA encoding, designed to be an 
-alternative to XML for data exchange between web services. It can also useful
+alternative to XML for data exchange between i.e. web services. It can also useful
 as a general encoding format similar to JSON.
 .PP
 The memory footprint of the library is small because it will never use more 
@@ -24,7 +24,7 @@ rudimentary checks. The library itself is thread safe.
 
 .SH TYPES
 This section briefly describes the FOA encoding. Each encoded line contains
-either data (could be members of an array or an object) or special chars. Each 
+either data (could be an array entry or an object member) or an special char. Each 
 special char or data item must be followed by a newline (\\n) character. The 
 special chars are 
 .B '(' 
@@ -36,8 +36,8 @@ special chars are
 .B ')' 
 (end object).
 .PP
-Each data, array or object can also be named by 'name = type'. We call this
-for naming the item. Arrays and objects can be unlimited nested in each other.
+Each data, array or object (type) can also be named by 'name = type'. Arrays and 
+objects can be unlimited nested in each other.
 .PP
 .B Syntax:
 .PP
@@ -52,9 +52,59 @@ text := any char
 .br 
 spec := ([])
 .br 
+.PP
+.B Example:
+.PP
+This is an example of how an array (named arr) containing two structures
+(persons with named members) will be encoded:
+.PP
+arr = [
+.br
+(
+.br
+name = Albert Einstein
+.br
+born = March 14, 1879
+.br
+)
+.br
+(
+.br
+name = Isaac Newton
+.br
+born = December 25, 1642
+.br
+)
+.br
+]
+.PP
+.B Escape:
+.PP
+If escaping is turned on (the default), then special chars will be escaped when encoding
+and unescaped when decoding (they are mapped to HTTP encoded equivalents).
+This is all transparent to the library user. The escaping can be turned off
+thru \fBfoa_set_mode()\fR to improve performance.
 
 .SH OPTIONS
-The libfoa structure is opaque. You are not supposed to peek inside it.
+The libfoa structure is opaque and you are not supposed to peek inside it.
+.PP
+.RS
+.nf
+.B struct foa_entity
+{
+	const char *name;      /* entity name (might be NULL) */
+	const char *data;      /* entity data (decoded data) */
+	int type;              /* entity type (see FOA_TYPE_XXX) */
+	unsigned long line;    /* current input line */
+};
+.RE
+.fi
+.TP 
+.B typedef int (*foa_handler)(const struct foa_entity *ent, void *arg);
+Prototype for the callback function set by foa_set_callback() and used by
+foa_scan() when decoding data. This function is called both for scanned data
+and as an error handler. If this function returns 0 to foa_scan(), then the 
+parsing will stop and foa_scan() will return immidiatelly.
 .TP
 .B foa_init(struct libfoa *foa);
 Initilize library usage. Returns 0 if successful and -1 on error.
@@ -63,13 +113,15 @@ Initilize library usage. Returns 0 if successful and -1 on error.
 Cleanup after finished. This function should only be called when done with
 the library.
 .TP
-.B void foa_alloc_strategy(size_t step, size_t max);
+.B int foa_alloc_strategy(struct libfoa *foa, size_t step, size_t max);
 Defines the memory allocation strategy. The step variable defines how
-aggressive memory is allocated. The max variable sets a maximum
-buffer size in bytes (use 0 for unlimited).
+aggressive memory is allocated. The variable max sets a maximum
+buffer size in bytes (use 0 for unlimited). If max is smaller than current
+used buffer size, then the buffer is reallocated. Returns 0 if sucessful 
+and -1 on error. 
 .TP
 .B void foa_set_callback(struct libfoa *foa, foa_handler func, void *arg);
-Use callback function to handle data seen. The optional arg get
+Set a callback function to handle decoded data. The optional arg is
 passed along together with each call to func.
 .TP 
 .B void foa_set_stream(struct libfoa *foa, FILE *file);
@@ -98,7 +150,8 @@ Decode the input iterative. This is an alternative to using the foa_scan()
 function. Returns the next entity or NULL on error.
 .TP
 .B const char * foa_write(struct libfoa *foa, int append, int type, 
-			      const char *name, const char *data);
+                          \fBconst char *name, const char *data);\fR
+.br			  
 Write data to memory buffer or file stream. If append is true, then data is 
 appended (only for memory buffer), otherwise the memory buffer is overwritten.
 The type is one of FOA_TYPE_XXX. Use NULL as name to write anonymous data. 
@@ -168,7 +221,7 @@ Full lenght examples of encoding/decoding and more documentation of the FOA
 format is distributed with the source code.
 
 .SH BUGS
-Probably, if you find one, send an bug report to lespaul@algonet.se
+Probably, send an bug report to lespaul@algonet.se if you find one.
 
 .SH AUTHOR
 Anders Lövgren
