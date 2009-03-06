@@ -30,6 +30,7 @@ extern "C" {
 #define FOA_MEMORY_ALLOC_INIT  128              /* initial buffer size */
 #define FOA_MEMORY_ALLOC_STEP  256              /* realloc buffer size */
 #define FOA_MEMORY_ALLOC_MAX   8 * 1024 * 1024  /* maximum buffer size */
+#define FOA_MEMORY_ALLOC_UNLIM 0                /* set maximun to unlimited */
 
 /* 
  * Classification of the foa entity structure type:
@@ -107,8 +108,6 @@ extern void foa_cleanup(struct libfoa *foa);
  * aggressive memory is allocated. The max variable sets a maximum
  * buffer size in bytes (use 0 for unlimited). Returns 0 if successful
  * and -1 on error.
- * 
- * TODO: implement 0 (unlimited).
  */
 extern int foa_alloc_strategy(struct libfoa *foa, size_t step, size_t max);
 

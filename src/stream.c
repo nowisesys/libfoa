@@ -43,7 +43,7 @@ int read_stream(struct libfoa *foa)
 		}
 		if(strchr(res, '\n')) 
 			break;
-		if(foa->size + foa->step > foa->max) {
+		if(foa->size + foa->step > foa->max && foa->max != 0) {
 			logerr(&foa->errmsg, 0, "maximum buffer size reached");
 			return -1;
 		}

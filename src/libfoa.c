@@ -66,7 +66,7 @@ int foa_alloc_strategy(struct libfoa *foa, size_t step, size_t max)
 {
 	foa->step = step;
 	foa->max  = max;
-	if(foa->max < foa->used) {
+	if(foa->max < foa->used && foa->max != 0) {
 		foa->buff = realloc(foa->buff, foa->max);
 		if(!foa->buff) {
 			write_errlog(&foa->errmsg, errno, "failed alloc memory");

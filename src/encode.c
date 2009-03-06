@@ -94,7 +94,7 @@ const char * foa_write(struct libfoa *foa, int append, int type,
 	}
 	puts = foa->used + need;
 	
-	if(need + foa->used > foa->max) {
+	if(need + foa->used > foa->max && foa->max != 0) {
 		logerr(&foa->errmsg, 0, "maximum buffer size reached");
 		return NULL;
 	}

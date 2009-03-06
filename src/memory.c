@@ -47,7 +47,7 @@ int read_memory(struct libfoa *foa)
 		need = strlen(foa->curr);
 	
 	if(need > foa->size) {
-		if(need > foa->max) {
+		if(need > foa->max && foa->max != 0) {
 			logerr(&foa->errmsg, 0, "maximum buffer size reached");
 			return -1;
 		}
