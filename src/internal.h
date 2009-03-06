@@ -61,6 +61,29 @@ int read_stream(struct libfoa *foa)
 void decode_entity(struct libfoa *foa) 
 	__attribute__((visibility("hidden")));
 
+/*
+ * Replacement for missing library functions.
+ */
+#if ! defined(HAVE_STRCHR)
+# undef strchr
+extern char * strchr(const char *s, int c)
+	__attribute__((visibility("hidden")));
+#endif
+#if ! defined(HAVE_MEMSET)
+extern void * memset(void *s, int c, size_t n)
+	__attribute__((visibility("hidden")));
+#endif
+#if ! defined(HAVE_STRDUP)
+# undef strdup
+extern char * strdup(const char *s)
+	__attribute__((visibility("hidden")));
+#endif
+#if ! defined(HAVE_STRPBRK)
+# undef strpbrk
+extern char * strpbrk(const char *s, const char *accept)
+	__attribute__((visibility("hidden")));
+#endif
+
 /* 
  * Plan for future error logging thru use supplied error logger.
  */
