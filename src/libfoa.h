@@ -105,11 +105,12 @@ extern void foa_cleanup(struct libfoa *foa);
 /* 
  * Define memory allocation strategy. The step variable defines how
  * aggressive memory is allocated. The max variable sets a maximum
- * buffer size in bytes (use 0 for unlimited).
+ * buffer size in bytes (use 0 for unlimited). Returns 0 if successful
+ * and -1 on error.
  * 
  * TODO: implement 0 (unlimited).
  */
-extern void foa_alloc_strategy(size_t step, size_t max);
+extern int foa_alloc_strategy(struct libfoa *foa, size_t step, size_t max);
 
 /* 
  * Use callback function to handle data seen. The optional arg get

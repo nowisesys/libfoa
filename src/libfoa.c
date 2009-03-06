@@ -57,6 +57,27 @@ void foa_cleanup(struct libfoa *foa)
 }
 
 /* 
+ * Define memory allocation strategy. The step variable defines how
+ * aggressive memory is allocated. The max variable sets a maximum
+ * buffer size in bytes (use 0 for unlimited). Returns 0 if successful
+ * and -1 on error.
+ */
+int foa_alloc_strategy(struct libfoa *foa, size_t step, size_t max)
+{
+	foa->step = step;
+	foa->max  = max;
+	if(foa->max < foa->used) {
+		foa->buff = realloc(foa->buff, foa->max);
+		if(!foa->buff) {
+			write_errlog(&foa->errmsg, errno, "failed alloc memory");
+			return -1;
+		}
+		foa->used = foa->max;
+	}
+	return 0;
+}
+
+/* 
  * Use callback function to handle data seen. The optional arg get
  * passed along together with each call to func.
  */
