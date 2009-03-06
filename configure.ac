@@ -35,5 +35,6 @@ CFLAGS="${CFLAGS_SAVED}"
 AC_CONFIG_FILES([Makefile
                  src/Makefile
                  example/Makefile
-		 doc/Makefile])
+		 doc/Makefile
+		 src/libfoa.pc])
 AC_OUTPUT

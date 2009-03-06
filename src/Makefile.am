@@ -1,3 +1,8 @@
+EXTRA_DIST = libfoa.pc libfoa.pc.in
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = libfoa.pc
+
 lib_LTLIBRARIES = libfoa.la
 libfoa_la_SOURCES = libfoa.c libfoa.h internal.h stream.c memory.c error.c \
 		    decode.c encode.c libfoa-utils.h
