@@ -24,6 +24,45 @@ extern "C" {
 
 #include <stdio.h>
 
+#if defined(__GNU_C__) && ! defined(__NO_INLINE__)
+# define FOA_API_INLINE static inline
+#else
+# define FOA_API_INLINE __inline
+#endif
+
+#if defined(WIN32) || defined(_WINDOWS) || defined(__CYGWIN__)
+	/* Define LIBFOA_EXPORTS when building library on windows. */
+# if defined(LIBFOA_EXPORTS)
+#  if defined(__GNU_C__)
+#   define FOA_API_PUBLIC __attribute__((dllexport))
+#  else
+	/* Note: actually gcc seems to also supports this syntax. */
+#   define FOA_API_PUBLIC __declspec(dllexport)
+#  endif
+# else
+#  if defined(__GNU_C__)
+#   define FOA_API_PUBLIC __attribute__((dllimport))
+#  else
+	/* Note: actually gcc seems to also supports this syntax. */
+#   define FOA_API_PUBLIC __declspec(dllimport) 
+#  endif
+# endif
+# define FOA_API_HIDDEN
+#else
+# if __GNU_C__ >= 4
+#  define FOA_API_PUBLIC __attribute__ ((visibility("default")))
+#  define FOA_API_HIDDEN __attribute__ ((visibility("hidden")))
+# else
+#  define FOA_API_PUBLIC
+#  define FOA_API_HIDDEN
+# endif
+#endif
+
+#define FOA_VERSION 0x000500
+#define FOA_MAJOR ((FOA_VERSION) & 0xff0000 >> 16)
+#define FOA_MINOR ((FOA_VERSION) & 0x00ff00 >> 8)
+#define FOA_REVIS ((FOA_VERSION) & 0x0000ff)
+
 /* 
  * Default memory allocation strategy.
  */
@@ -96,12 +135,12 @@ struct libfoa
  * Initilize library usage. Returns 0 if successful and -1
  * on error.
  */
-extern int foa_init(struct libfoa *foa);
+FOA_API_PUBLIC extern int foa_init(struct libfoa *foa);
 
 /* 
  * Cleanup after finished.
  */
-extern void foa_cleanup(struct libfoa *foa);
+FOA_API_PUBLIC extern void foa_cleanup(struct libfoa *foa);
 
 /* 
  * Define memory allocation strategy. The step variable defines how
@@ -109,47 +148,47 @@ extern void foa_cleanup(struct libfoa *foa);
  * buffer size in bytes (use 0 for unlimited). Returns 0 if successful
  * and -1 on error.
  */
-extern int foa_alloc_strategy(struct libfoa *foa, size_t step, size_t max);
+FOA_API_PUBLIC extern int foa_alloc_strategy(struct libfoa *foa, size_t step, size_t max);
 
 /* 
  * Use callback function to handle data seen. The optional arg get
  * passed along together with each call to func.
  */
-extern void foa_set_callback(struct libfoa *foa, foa_handler func, void *arg);
+FOA_API_PUBLIC extern void foa_set_callback(struct libfoa *foa, foa_handler func, void *arg);
 
 /* 
  * Set file stream for reading and writing.
  */
-extern void foa_set_stream(struct libfoa *foa, FILE *file);
+FOA_API_PUBLIC extern void foa_set_stream(struct libfoa *foa, FILE *file);
 
 /* 
  * Set input buffer for memory reading.
  */
-extern void foa_set_buffer(struct libfoa *foa, const char *input);
+FOA_API_PUBLIC extern void foa_set_buffer(struct libfoa *foa, const char *input);
 
 /* 
  * Set current mode.
  */
-extern void foa_set_mode(struct libfoa *foa, int mode, int enable);
+FOA_API_PUBLIC extern void foa_set_mode(struct libfoa *foa, int mode, int enable);
 	
 /* 
  * Get current mode.
  */
-extern void foa_get_mode(struct libfoa *foa, int mode, int *enable);
+FOA_API_PUBLIC extern void foa_get_mode(struct libfoa *foa, int mode, int *enable);
 	
 /* 
  * Decode the input using the registered callback function for 
  * each type (data or special character) seen. Returns 0 when
  * input data has been successful processed and -1 on error.
  */
-extern int foa_scan(struct libfoa *foa);
+FOA_API_PUBLIC extern int foa_scan(struct libfoa *foa);
 
 /* 
  * Decode the input iterative. This is an alternative to
  * using the foa_scan() function. Returns the next entity
  * or NULL on error.
  */
-extern const struct foa_entity * foa_next(struct libfoa *foa);
+FOA_API_PUBLIC extern const struct foa_entity * foa_next(struct libfoa *foa);
 
 /* 
  * Write data to memory buffer or file stream. If append is true,
@@ -158,13 +197,13 @@ extern const struct foa_entity * foa_next(struct libfoa *foa);
  * Use NULL as name to write anonymous data. Returns the encoded 
  * string on success and NULL on error.
  */
-extern const char * foa_write(struct libfoa *foa, int append, int type, 
+FOA_API_PUBLIC extern const char * foa_write(struct libfoa *foa, int append, int type, 
 			      const char *name, const char *data);
 
 /* 
  * Get last error message.
  */
-static inline const char * foa_last_error(struct libfoa *foa)
+FOA_API_INLINE const char * foa_last_error(struct libfoa *foa)
 {
 	return foa->errmsg;
 }
@@ -172,15 +211,15 @@ static inline const char * foa_last_error(struct libfoa *foa)
 /* 
  * Returns true if error is set.
  */
-static inline int foa_error_set(struct libfoa *foa)
+FOA_API_INLINE int foa_error_set(struct libfoa *foa)
 {
 	return foa->errmsg ? 1 : 0;
 }
-	
+
 /* 
  * Clear stored error message.
  */
-extern void foa_reset_error(struct libfoa *foa);
+FOA_API_PUBLIC extern void foa_reset_error(struct libfoa *foa);
 	
 #ifdef __cplusplus
 }      /* extern "C" */

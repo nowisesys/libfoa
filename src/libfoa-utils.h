@@ -33,7 +33,7 @@ extern "C" {
 /* 
  * Enable or disable escape of special chars.
  */
-static inline void foa_enable_escape(struct libfoa *foa, int enable)
+FOA_API_INLINE void foa_enable_escape(struct libfoa *foa, int enable)
 {
 	foa_set_mode(foa, FOA_MODE_ESCAPE, enable);
 }
@@ -41,7 +41,7 @@ static inline void foa_enable_escape(struct libfoa *foa, int enable)
 /* 
  * Enable or disable looking for hashes (key = value) in input data.
  */
-static inline void foa_enable_hashes(struct libfoa *foa, int enable)
+FOA_API_INLINE void foa_enable_hashes(struct libfoa *foa, int enable)
 {
 	foa_set_mode(foa, FOA_MODE_HASHES, enable);
 }
@@ -49,7 +49,7 @@ static inline void foa_enable_hashes(struct libfoa *foa, int enable)
 /* 
  * Write data entity.
  */
-static inline const char * foa_write_data(struct libfoa *foa, const char *name, const char *data, int append)
+FOA_API_INLINE const char * foa_write_data(struct libfoa *foa, const char *name, const char *data, int append)
 {
 	return foa_write(foa, append, FOA_TYPE_DATA_ENTITY, name, data);
 }
@@ -60,24 +60,24 @@ static inline const char * foa_write_data(struct libfoa *foa, const char *name, 
  * cause the maximum alloc limit to be reached for the memory buffer 
  * if used in append mode. Returns NULL on error.
  */
-extern const char * foa_write_array(struct libfoa *foa, const char **data, int append);
+FOA_API_PUBLIC extern const char * foa_write_array(struct libfoa *foa, const char **data, int append);
 
-static inline const char * foa_start_object(struct libfoa *foa, int append)
+FOA_API_INLINE const char * foa_start_object(struct libfoa *foa, int append)
 {
 	return foa_write(foa, append, FOA_TYPE_START_OBJECT, NULL, NULL);
 }
 
-static inline const char * foa_end_object(struct libfoa *foa, int append)
+FOA_API_INLINE const char * foa_end_object(struct libfoa *foa, int append)
 {
 	return foa_write(foa, append, FOA_TYPE_END_OBJECT, NULL, NULL);
 }
 
-static inline const char * foa_start_array(struct libfoa *foa, int append)
+FOA_API_INLINE const char * foa_start_array(struct libfoa *foa, int append)
 {
 	return foa_write(foa, append, FOA_TYPE_START_ARRAY, NULL, NULL);
 }
 
-static inline const char * foa_end_array(struct libfoa *foa, int append)
+FOA_API_INLINE const char * foa_end_array(struct libfoa *foa, int append)
 {
 	return foa_write(foa, append, FOA_TYPE_END_ARRAY, NULL, NULL);
 }

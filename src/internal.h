@@ -40,48 +40,43 @@
 /* 
  * Write an formatted message to the error buffer.
  */
-void write_errlog(char **buff, int code, const char *fmt, ...)
-	__attribute__((visibility("hidden")));
+void write_errlog(char **buff, int code, const char *fmt, ...) FOA_API_HIDDEN;
 
 /* 
  * Read next entity from the input memory buffer.
  */
-int read_memory(struct libfoa *foa) 
-	__attribute__((visibility("hidden")));
+int read_memory(struct libfoa *foa) FOA_API_HIDDEN;
 
 /* 
  * Read next entity from the input stream.
  */
-int read_stream(struct libfoa *foa) 
-	__attribute__((visibility("hidden")));
+int read_stream(struct libfoa *foa) FOA_API_HIDDEN;
 
 /* 
  * Decode the entity in foa->buff and update foa->entity.
  */
-void decode_entity(struct libfoa *foa) 
-	__attribute__((visibility("hidden")));
+void decode_entity(struct libfoa *foa) FOA_API_HIDDEN;
 
 /*
  * Replacement for missing library functions.
  */
 #if ! defined(HAVE_STRCHR)
 # undef strchr
-extern char * strchr(const char *s, int c)
-	__attribute__((visibility("hidden")));
+extern char * strchr(const char *s, int c) FOA_API_HIDDEN;
 #endif
 #if ! defined(HAVE_MEMSET)
-extern void * memset(void *s, int c, size_t n)
-	__attribute__((visibility("hidden")));
+extern void * memset(void *s, int c, size_t n) FOA_API_HIDDEN;
 #endif
 #if ! defined(HAVE_STRDUP)
 # undef strdup
-extern char * strdup(const char *s)
-	__attribute__((visibility("hidden")));
+extern char * strdup(const char *s) FOA_API_HIDDEN;
 #endif
 #if ! defined(HAVE_STRPBRK)
 # undef strpbrk
-extern char * strpbrk(const char *s, const char *accept)
-	__attribute__((visibility("hidden")));
+extern char * strpbrk(const char *s, const char *accept) FOA_API_HIDDEN
+#endif
+#if ! defined(HAVE_VSNPRINTF)
+extern int vsnprintf(char *str, size_t size, const char *fmt, va_list ap) FOA_API_HIDDEN;
 #endif
 
 /* 
