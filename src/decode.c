@@ -43,7 +43,7 @@ struct http_encode
 /* 
  * Find first block of whitespace characters and eat them.
  */
-static inline char * eat_white(char *str) 
+FOA_API_INLINE char * eat_white(char *str) 
 {
 	while((*str && isspace(*str)))  str--; str++;
 	while((*str && isspace(*str))) *str++ = '\0';
