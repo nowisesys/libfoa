@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libfoa", "libfoa.vcproj", "{C31CD0E0-7AB0-4559-BFD0-A6F95226C99F}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{C31CD0E0-7AB0-4559-BFD0-A6F95226C99F}.Debug.ActiveCfg = Debug|Win32
+		{C31CD0E0-7AB0-4559-BFD0-A6F95226C99F}.Debug.Build.0 = Debug|Win32
+		{C31CD0E0-7AB0-4559-BFD0-A6F95226C99F}.Release.ActiveCfg = Release|Win32
+		{C31CD0E0-7AB0-4559-BFD0-A6F95226C99F}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
