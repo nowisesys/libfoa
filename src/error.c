@@ -40,7 +40,7 @@ void write_errlog(char **buff, int code, const char *fmt, ...)
 {
 	const char *errstr = NULL;
 	va_list ap;
-	int size;
+	size_t size;
 	
 	va_start(ap, fmt);
 	size = vsnprintf(NULL, 0, fmt, ap);

@@ -41,7 +41,7 @@ int read_stream(struct libfoa *foa)
 	register char *put, *res;
 		
 	for(put = foa->buff;; put += foa->step) {
-		res = fgets(put, foa->size - 1, foa->file);
+		res = fgets(put, (int)foa->size - 1, foa->file);
 		if(!res) {
 			if(!feof(foa->file))
 				logerr(&foa->errmsg, errno, "failed read stream");
