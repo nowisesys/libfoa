@@ -6,7 +6,7 @@
 CC      = $(BCCDIR)\bin\bcc32
 ILINK32 = $(BCCDIR)\bin\ilink32
 
-BCC32OPTS = -P- -WD -WR -w-pia- -w-par-
+BCC32OPTS = -ps -WD -WR -w-pia- -w-par- -5
 CPPFLAGS  = -DWIN32 -DHAVE_CONFIG_H -D_BCC55 -DLIBFOA_EXPORTS -I$(SRCDIR) -I.
 CFLAGS    = -O2 $(CPPFLAGS) $(BCC32OPTS)
 LDFLAGS   = -x -c -aa -Tpd -Gi -Gl -OS -r -m $(LDGECKO)
@@ -26,15 +26,16 @@ TEMPDIR = temp
 .path.c = $(SRCDIR)
 
 targets : $(LIBNAME)
-$(LIBNAME) : decode.obj encode.obj error.obj libfoa.obj memory.obj replace.obj stream.obj
+$(LIBNAME) : $(OBJECTS)
 	mkdir $(TEMPDIR)
 	$(ILINK32) $(LDFLAGS) $(OBJECTS) $(IMPORTLIB) -I$(TEMPDIR) -L$(BCCDIR)\Lib, $@, $(EXPNAME)
 
 clean :
-	del /q $(OBJECTS)
-	rmdir /s /q $(TEMPDIR)
+	if exist *.obj del /q $(OBJECTS)
+	if exist *.tds del /q *.tds
+	if exist $(TEMPDIR) rmdir /s /q $(TEMPDIR)
 distclean : clean
-	del /q libfoa.*
+	if exist libfoa.* del /q libfoa.*
 
 .c.obj :
 	$(CC) $(CFLAGS) -c $<
