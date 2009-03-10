@@ -34,6 +34,13 @@
 #include "libfoa.h"
 #include "internal.h"
 
+#if defined(WIN32) && defined(_BCC55)
+# ifdef FOA_API_INLINE
+#  undef FOA_API_INLINE
+# endif
+# define FOA_API_INLINE
+#endif
+
 struct http_encode
 {
 	const char *str;
@@ -157,7 +164,7 @@ void decode_entity(struct libfoa *foa)
 			 * We might have at least one escaped character. 
 			 */
 			char enc;
-			for(pp = (char *)foa->entity.data; pp; pp = strchr(pp + 1, '%')) {
+			for(pp = foa->entity.data; pp; pp = strchr(pp + 1, '%')) {
 				if((enc = get_unescaped_char(pp)) != 0) {
 					*pp = enc;
 					memmove(pp + 1, pp + 3, strlen(pp));
