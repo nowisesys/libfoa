@@ -30,6 +30,7 @@
 #include <errno.h>
 
 #include "libfoa.h"
+#include "libfoa-utils.h"
 #include "internal.h"
 
 /*
