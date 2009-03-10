@@ -39,7 +39,7 @@
  */
 int read_memory(struct libfoa *foa)
 {
-	size_t need = 0;
+	size_t need;
 
 	if(!foa->curr || *foa->curr == '\0')
 		return -1;

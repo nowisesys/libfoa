@@ -73,10 +73,13 @@ extern char * strdup(const char *s) FOA_API_HIDDEN;
 #endif
 #if ! defined(HAVE_STRPBRK)
 # undef strpbrk
-extern char * strpbrk(const char *s, const char *accept) FOA_API_HIDDEN
+extern char * strpbrk(const char *s, const char *accept) FOA_API_HIDDEN;
 #endif
 #if ! defined(HAVE_VSNPRINTF)
-extern int vsnprintf(char *str, size_t size, const char *fmt, va_list ap) FOA_API_HIDDEN;
+# include <stdarg.h>
+extern int vsnprintf(char *str, size_t size, 
+					 const char *fmt, 
+					 va_list ap) FOA_API_HIDDEN;
 #endif
 
 /* 
