@@ -1,1 +1,20 @@
-This is the first release of libfoa.
+Version 0.6.2 (2009-03-10):
+
+	* Some minor bug fixes, among them adding this NEWS file ;-)
+
+Version 0.6.1 (2009-03-10):
+
+	* Windows port: Added support for building the library using Borland
+	  C++ 5.5 (the free command line tools from Inprise).
+
+Version 0.6.0 (2009-03-09):
+
+	* Windows port: Added support for buidling the library using
+	  Microsoft Visual Studio 2003 (professional).
+
+	* Lots of fixes regarding export of public API
+	
+Version 0.5.0 (2009-03-06):
+	
+	* First release. Includes library + example and test code. Supports
+	  Linux/UNIX using GCC.
