@@ -24,7 +24,7 @@ extern "C" {
 
 #include <stdio.h>
 
-#if defined(__GNU_C__) && ! defined(__NO_INLINE__)
+#if defined(__GNUC__) && ! defined(__NO_INLINE__)
 # define FOA_API_INLINE static inline
 #else
 # define FOA_API_INLINE __inline
@@ -33,14 +33,14 @@ extern "C" {
 #if defined(WIN32) || defined(_WINDOWS) || defined(__CYGWIN__)
 	/* Define LIBFOA_EXPORTS when building library on windows. */
 # if defined(LIBFOA_EXPORTS)
-#  if defined(__GNU_C__)
+#  if defined(__GNUC__)
 #   define FOA_API_PUBLIC __attribute__((dllexport))
 #  else
 	/* Note: actually gcc seems to also supports this syntax. */
 #   define FOA_API_PUBLIC __declspec(dllexport)
 #  endif
 # else
-#  if defined(__GNU_C__)
+#  if defined(__GNUC__)
 #   define FOA_API_PUBLIC __attribute__((dllimport))
 #  else
 	/* Note: actually gcc seems to also supports this syntax. */
@@ -49,7 +49,7 @@ extern "C" {
 # endif
 # define FOA_API_HIDDEN
 #else
-# if __GNU_C__ >= 4
+# if __GNUC__ >= 4
 #  define FOA_API_PUBLIC __attribute__ ((visibility("default")))
 #  define FOA_API_HIDDEN __attribute__ ((visibility("hidden")))
 # else
