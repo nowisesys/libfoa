@@ -1,6 +1,7 @@
 The libfoa library was ported to Windows in the 0.6.x release. It can be 
-built on Windows using:
+built on Windows using either:
 
 * Microsoft Visual Studio 2003 (see win32/vs2003)
+* Borland C++ 5.5 (Inprise)    (see win32/bcc55)
 
-// Anders Lövgren, 2009-03-09
+// Anders Lövgren, 2009-03-10
