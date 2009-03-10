@@ -2,8 +2,8 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
-AC_INIT(libfoa, 0.5.0, lespaul@algonet.se)
-AM_INIT_AUTOMAKE([libfoa], [0.5.0])
+AC_INIT(libfoa, 0.6.0, lespaul@algonet.se)
+AM_INIT_AUTOMAKE([libfoa], [0.6.0])
 AC_CONFIG_SRCDIR([src/libfoa.c])
 AC_CONFIG_HEADER([config.h])
 
@@ -29,7 +29,7 @@ CFLAGS_SAVED="$CFLAGS"
 CFLAGS="$CFLAGS -fno-builtin"
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC
-AC_CHECK_FUNCS([memset strchr strdup strerror strpbrk])
+AC_CHECK_FUNCS([memset strchr strdup strerror strpbrk vsnprintf])
 CFLAGS="${CFLAGS_SAVED}"
 
 AC_CONFIG_FILES([Makefile
