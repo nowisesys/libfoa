@@ -55,6 +55,6 @@
 #define HAVE_STRPBRK 1
 
 /* Define to 1 if you have the `vsnprintf' function. */
-#undef HAVE_VSNPRINTF
+#define HAVE_VSNPRINTF 1
 
 #endif /* __CONFIG_H__ */
