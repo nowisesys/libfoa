@@ -60,7 +60,6 @@ int read_stream(struct libfoa *foa)
 			foa->size = 0;
 			return -1;
 		}
-		printf("realloc: %lu bytes\n", foa->size);
 	}
 	
 	decode_entity(foa);
