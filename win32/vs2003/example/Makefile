@@ -55,3 +55,4 @@ clean :
 	if exist *.tds del /q *.tds
 distclean : clean
 	if exist *.exe del /q *.exe
+rebuild : distclean all
