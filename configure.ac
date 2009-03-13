@@ -2,8 +2,8 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
-AC_INIT(libfoa, 0.6.3, lespaul@algonet.se)
-AM_INIT_AUTOMAKE([libfoa], [0.6.3])
+AC_INIT(libfoa, 0.6.4, lespaul@algonet.se)
+AM_INIT_AUTOMAKE([libfoa], [0.6.4])
 AC_CONFIG_SRCDIR([src/libfoa.c])
 AC_CONFIG_HEADER([config.h])
 
