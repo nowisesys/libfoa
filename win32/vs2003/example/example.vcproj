@@ -29,6 +29,9 @@
 			ConfigurationType="0">
 			<Tool
 				Name="VCNMakeTool"
+				BuildCommandLine="nmake all"
+				ReBuildCommandLine="nmake rebuild"
+				CleanCommandLine="nmake distclean"
 				Output="example.exe"/>
 		</Configuration>
 	</Configurations>
