@@ -3,6 +3,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libfoa", "libfoa.vcproj", "
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example", "example\example.vcproj", "{85870DC4-8308-4048-8004-35E00F717F22}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -11,10 +15,14 @@ Global
 	GlobalSection(ProjectDependencies) = postSolution
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
-		{C31CD0E0-7AB0-4559-BFD0-A6F95226C99F}.Debug.ActiveCfg = Debug|Win32
-		{C31CD0E0-7AB0-4559-BFD0-A6F95226C99F}.Debug.Build.0 = Debug|Win32
+		{C31CD0E0-7AB0-4559-BFD0-A6F95226C99F}.Debug.ActiveCfg = Release|Win32
+		{C31CD0E0-7AB0-4559-BFD0-A6F95226C99F}.Debug.Build.0 = Release|Win32
 		{C31CD0E0-7AB0-4559-BFD0-A6F95226C99F}.Release.ActiveCfg = Release|Win32
 		{C31CD0E0-7AB0-4559-BFD0-A6F95226C99F}.Release.Build.0 = Release|Win32
+		{85870DC4-8308-4048-8004-35E00F717F22}.Debug.ActiveCfg = Debug|Win32
+		{85870DC4-8308-4048-8004-35E00F717F22}.Debug.Build.0 = Debug|Win32
+		{85870DC4-8308-4048-8004-35E00F717F22}.Release.ActiveCfg = Release|Win32
+		{85870DC4-8308-4048-8004-35E00F717F22}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
