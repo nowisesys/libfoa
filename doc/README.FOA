@@ -1,8 +1,12 @@
-** Encoding objects and arrays in FOA **
+** Mapping of C/C++ object/arrays to FOA encoding **
+
+This file has some simple examples of how C/C++ objects and arrays would be
+encoded using the FOA encoding method. See the example directory for more
+complex examples.
 
 ** EXAMPLES:
 
-   Here are some example of encoding arrays and objects:
+   An simple object representing an person:
    
      struct person
      {
