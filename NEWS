@@ -1,3 +1,15 @@
+Verison 0.6.5 (2009-03-15):
+
+	* Integrated building the examples in the MS VS2003 solution.
+	
+	* Switching to release mode. Fixed all warnings building with VC7.
+	
+	* Enable conditional build of examples (pass --enable-examples to configure).
+	
+Version 0.6.4 (2009-03-13):
+
+	* Added makefile for building examples using MS VS2003 (nmake).
+	
 Version 0.6.3 (2009-03-11):
 
 	* Fixed DLL-export of some utility functions when building on Windows.

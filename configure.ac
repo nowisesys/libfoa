@@ -32,6 +32,17 @@ AC_FUNC_REALLOC
 AC_CHECK_FUNCS([memset strchr strdup strerror strpbrk vsnprintf])
 CFLAGS="${CFLAGS_SAVED}"
 
+# Check whether to build examples:
+AC_MSG_CHECKING([whether to build examples])
+AC_ARG_ENABLE([examples], 
+  [AS_HELP_STRING([--enable-examples], 
+    [Build libfoa example code [default=no]])],
+  [build_examples=$enableval],
+  [build_examples=no]
+)
+AC_MSG_RESULT($build_examples)
+AM_CONDITIONAL(BUILD_EXAMPLES, test x${build_examples} == xyes)
+
 AC_CONFIG_FILES([Makefile
                  src/Makefile
                  example/Makefile
