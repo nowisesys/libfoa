@@ -58,6 +58,15 @@ extern "C" {
 # endif
 #endif
 
+/* 
+ * The FOA specification this library is implementing. See
+ * http://it.bmc.uu.se/andlov/proj/libfoa/spec.php
+ */
+#define FOA_SPEC 1.0f    /* Specification 1.0 */
+
+/* 
+ * Library version.
+ */
 #define FOA_VERSION 0x000606
 #define FOA_MAJOR ((FOA_VERSION) & 0xff0000 >> 16)
 #define FOA_MINOR ((FOA_VERSION) & 0x00ff00 >> 8)
