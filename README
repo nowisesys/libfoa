@@ -10,9 +10,14 @@
    oriented messages or serializing objects to storage (letting you write
    objects in i.e. C/C++ and read them back in Java).
    
-   It can also be useful as an generic encoding format as JSON. FOA has an
+   It can also be useful as an generic encoding format, like JSON. FOA has an
    design that makes it useful for object/array streaming.
 
+** SPECIFICATION:
+
+   The official FOA specification can be read at: 
+   http://it.bmc.uu.se/andlov/proj/libfoa/spec.php
+   
 ** LICENSE:
 
    The FOA library is released under the Lesser GNU General Public License
@@ -40,12 +45,12 @@
    for more information. 
    
    The assignment '=' character is another special char that is used to name
-   data, objects and arrays. By using '=' to name your data, its possible to
+   data, objects and arrays. By using '=' to name your data, it's possible to
    encode a wide range of data structures, including hashes (Perl) or hash
    arrays (PHP).
    
-   By naming an object when encoding its possible to tell the receiver what
-   type the object represent when decoding. This is really useful in network
-   protocols.
+   By naming an object or array at encoding, it's possible to tell the receiver 
+   the type of object to decode as. This can be really useful when implementing
+   network protocols.
    
 // Anders Lövgren, 2009-03-15
