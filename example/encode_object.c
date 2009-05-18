@@ -3,7 +3,7 @@
 #include "libfoa-utils.h"
 
 /* 
- * Example: encode_buffer
+ * Example: encode_object
  * 
  * Simple example showing how to encode an object with named member
  * variables in the memory buffer. This example is equivalent to
