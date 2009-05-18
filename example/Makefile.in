@@ -42,7 +42,8 @@ noinst_PROGRAMS = init_libfoa$(EXEEXT) decode_simple_array$(EXEEXT) \
 	decode_stream$(EXEEXT) decode_large_stream$(EXEEXT) \
 	decode_callback$(EXEEXT) write_array_buffer$(EXEEXT) \
 	write_array_stream$(EXEEXT) escape_buffer$(EXEEXT) \
-	set_mode$(EXEEXT)
+	set_mode$(EXEEXT) encode_named_object$(EXEEXT) \
+	decode_named_object$(EXEEXT)
 subdir = example
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -76,6 +77,9 @@ decode_large_object_LDADD = $(LDADD)
 am_decode_large_stream_OBJECTS = decode_large_stream.$(OBJEXT)
 decode_large_stream_OBJECTS = $(am_decode_large_stream_OBJECTS)
 decode_large_stream_LDADD = $(LDADD)
+am_decode_named_object_OBJECTS = decode_named_object.$(OBJEXT)
+decode_named_object_OBJECTS = $(am_decode_named_object_OBJECTS)
+decode_named_object_LDADD = $(LDADD)
 am_decode_simple_array_OBJECTS = decode_simple_array.$(OBJEXT)
 decode_simple_array_OBJECTS = $(am_decode_simple_array_OBJECTS)
 decode_simple_array_LDADD = $(LDADD)
@@ -93,6 +97,9 @@ decode_unordered_object_LDADD = $(LDADD)
 am_encode_buffer_OBJECTS = encode_buffer.$(OBJEXT)
 encode_buffer_OBJECTS = $(am_encode_buffer_OBJECTS)
 encode_buffer_LDADD = $(LDADD)
+am_encode_named_object_OBJECTS = encode_named_object.$(OBJEXT)
+encode_named_object_OBJECTS = $(am_encode_named_object_OBJECTS)
+encode_named_object_LDADD = $(LDADD)
 am_encode_object_OBJECTS = encode_object.$(OBJEXT)
 encode_object_OBJECTS = $(am_encode_object_OBJECTS)
 encode_object_LDADD = $(LDADD)
@@ -130,9 +137,10 @@ SOURCES = $(decode_callback_SOURCES) $(decode_error_SOURCES) \
 	$(decode_hashed_array_SOURCES) $(decode_hashed_object_SOURCES) \
 	$(decode_hashed_object_array_SOURCES) \
 	$(decode_large_object_SOURCES) $(decode_large_stream_SOURCES) \
-	$(decode_simple_array_SOURCES) $(decode_simple_object_SOURCES) \
-	$(decode_stream_SOURCES) $(decode_unordered_object_SOURCES) \
-	$(encode_buffer_SOURCES) $(encode_object_SOURCES) \
+	$(decode_named_object_SOURCES) $(decode_simple_array_SOURCES) \
+	$(decode_simple_object_SOURCES) $(decode_stream_SOURCES) \
+	$(decode_unordered_object_SOURCES) $(encode_buffer_SOURCES) \
+	$(encode_named_object_SOURCES) $(encode_object_SOURCES) \
 	$(encode_stream_SOURCES) $(escape_buffer_SOURCES) \
 	$(init_libfoa_SOURCES) $(set_mode_SOURCES) \
 	$(write_array_buffer_SOURCES) $(write_array_stream_SOURCES)
@@ -140,9 +148,10 @@ DIST_SOURCES = $(decode_callback_SOURCES) $(decode_error_SOURCES) \
 	$(decode_hashed_array_SOURCES) $(decode_hashed_object_SOURCES) \
 	$(decode_hashed_object_array_SOURCES) \
 	$(decode_large_object_SOURCES) $(decode_large_stream_SOURCES) \
-	$(decode_simple_array_SOURCES) $(decode_simple_object_SOURCES) \
-	$(decode_stream_SOURCES) $(decode_unordered_object_SOURCES) \
-	$(encode_buffer_SOURCES) $(encode_object_SOURCES) \
+	$(decode_named_object_SOURCES) $(decode_simple_array_SOURCES) \
+	$(decode_simple_object_SOURCES) $(decode_stream_SOURCES) \
+	$(decode_unordered_object_SOURCES) $(encode_buffer_SOURCES) \
+	$(encode_named_object_SOURCES) $(encode_object_SOURCES) \
 	$(encode_stream_SOURCES) $(escape_buffer_SOURCES) \
 	$(init_libfoa_SOURCES) $(set_mode_SOURCES) \
 	$(write_array_buffer_SOURCES) $(write_array_stream_SOURCES)
@@ -279,6 +288,8 @@ write_array_buffer_SOURCES = write_array_buffer.c
 write_array_stream_SOURCES = write_array_stream.c
 escape_buffer_SOURCES = escape_buffer.c
 set_mode_SOURCES = set_mode.c
+encode_named_object_SOURCES = encode_named_object.c
+decode_named_object_SOURCES = decode_named_object.c
 all: all-am
 
 .SUFFIXES:
@@ -340,6 +351,9 @@ decode_large_object$(EXEEXT): $(decode_large_object_OBJECTS) $(decode_large_obje
 decode_large_stream$(EXEEXT): $(decode_large_stream_OBJECTS) $(decode_large_stream_DEPENDENCIES) 
 	@rm -f decode_large_stream$(EXEEXT)
 	$(LINK) $(decode_large_stream_OBJECTS) $(decode_large_stream_LDADD) $(LIBS)
+decode_named_object$(EXEEXT): $(decode_named_object_OBJECTS) $(decode_named_object_DEPENDENCIES) 
+	@rm -f decode_named_object$(EXEEXT)
+	$(LINK) $(decode_named_object_OBJECTS) $(decode_named_object_LDADD) $(LIBS)
 decode_simple_array$(EXEEXT): $(decode_simple_array_OBJECTS) $(decode_simple_array_DEPENDENCIES) 
 	@rm -f decode_simple_array$(EXEEXT)
 	$(LINK) $(decode_simple_array_OBJECTS) $(decode_simple_array_LDADD) $(LIBS)
@@ -355,6 +369,9 @@ decode_unordered_object$(EXEEXT): $(decode_unordered_object_OBJECTS) $(decode_un
 encode_buffer$(EXEEXT): $(encode_buffer_OBJECTS) $(encode_buffer_DEPENDENCIES) 
 	@rm -f encode_buffer$(EXEEXT)
 	$(LINK) $(encode_buffer_OBJECTS) $(encode_buffer_LDADD) $(LIBS)
+encode_named_object$(EXEEXT): $(encode_named_object_OBJECTS) $(encode_named_object_DEPENDENCIES) 
+	@rm -f encode_named_object$(EXEEXT)
+	$(LINK) $(encode_named_object_OBJECTS) $(encode_named_object_LDADD) $(LIBS)
 encode_object$(EXEEXT): $(encode_object_OBJECTS) $(encode_object_DEPENDENCIES) 
 	@rm -f encode_object$(EXEEXT)
 	$(LINK) $(encode_object_OBJECTS) $(encode_object_LDADD) $(LIBS)
@@ -390,11 +407,13 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/decode_hashed_object_array.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/decode_large_object.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/decode_large_stream.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/decode_named_object.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/decode_simple_array.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/decode_simple_object.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/decode_stream.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/decode_unordered_object.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/encode_buffer.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/encode_named_object.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/encode_object.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/encode_stream.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/escape_buffer.Po@am__quote@

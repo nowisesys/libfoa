@@ -6,7 +6,8 @@ noinst_PROGRAMS = init_libfoa decode_simple_array decode_hashed_array \
 	       decode_unordered_object encode_buffer encode_stream \
 	       encode_object decode_error decode_large_object decode_stream \
 	       decode_large_stream decode_callback write_array_buffer \
-	       write_array_stream escape_buffer set_mode
+	       write_array_stream escape_buffer set_mode encode_named_object \
+	       decode_named_object
 
 init_libfoa_SOURCES = init_libfoa.c
 decode_simple_array_SOURCES = decode_simple_array.c
@@ -27,3 +28,5 @@ write_array_buffer_SOURCES = write_array_buffer.c
 write_array_stream_SOURCES = write_array_stream.c
 escape_buffer_SOURCES = escape_buffer.c
 set_mode_SOURCES = set_mode.c
+encode_named_object_SOURCES = encode_named_object.c
+decode_named_object_SOURCES = decode_named_object.c
