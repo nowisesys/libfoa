@@ -44,9 +44,15 @@ const char * foa_write(struct libfoa *foa, int append, int type,
 	size_t need = 1;      /* required size */
 	size_t puts = 0;      /* requested number of bytes */
 	int doesc = 0;        /* is escaping required? */
+	int spec = 0;         /* is type is one of '([])'? */
+	
 	const char *pp;
 	
 	if(name) {
+		if(type == FOA_TYPE_END_OBJECT || type == FOA_TYPE_END_ARRAY) {
+			logerr(&foa->errmsg, 0, "name is not allowed for closure entities");
+			return NULL;
+		}
 		if(!foa->hashes) {
 			logerr(&foa->errmsg, 0, "named data is not allowed");
 			return NULL;
@@ -64,6 +70,7 @@ const char * foa_write(struct libfoa *foa, int append, int type,
 	case FOA_TYPE_START_ARRAY:
 	case FOA_TYPE_END_OBJECT:
 	case FOA_TYPE_END_ARRAY:
+		spec = 1;
 		need += 1;
 		break;
 	case FOA_TYPE_DATA_ENTITY:
@@ -118,7 +125,7 @@ const char * foa_write(struct libfoa *foa, int append, int type,
 				     name, 
 				     FOA_TYPE_NAME_DATA);
 	}
-	if(need == 2) {      /* one of ([]) */
+	if(spec) {      /* one of ([]) */
 		foa->used += sprintf(foa->buff + foa->used, "%c", type);
 	} else {
 		if(!doesc || (!foa->escape && !foa->hashes)) {

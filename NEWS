@@ -1,3 +1,8 @@
+Version 0.6.7 (2009-05-19):
+
+	* Naming objects and arrays where impossible in previous version,
+	  fixed now.
+
 Version 0.6.6 (2009-03-15):
 
 	* Updated the documentation explaining some domains of application of FOA.
