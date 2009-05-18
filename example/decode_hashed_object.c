@@ -2,6 +2,8 @@
 #include "libfoa.h"
 
 /* 
+ * Example: decode_hashed_object
+ * 
  * This example demonstrate decoding an array of objects. Consider:
  * 
  * struct person 
