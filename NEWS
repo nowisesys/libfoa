@@ -1,3 +1,11 @@
+Version 0.6.8 (2009-05-19):
+
+	* Fixed bug where named objects and arrays got their type set to
+	  first character from data. Introduced in version 0.6.7, fixed here.
+	  
+	* The last error buffer will now contain decode errors (syntax)
+	  unless explicit turned off by calling foa_set_mode().
+
 Version 0.6.7 (2009-05-19):
 
 	* Naming objects and arrays where impossible in previous version,
