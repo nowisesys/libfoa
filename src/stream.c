@@ -63,6 +63,9 @@ int read_stream(struct libfoa *foa)
 	}
 	
 	decode_entity(foa);
+	if(foa->entity.type == FOA_TYPE_ERROR_MESSAGE && foa->seterr) {
+		logerr(&foa->errmsg, 0, foa->entity.data);
+	}
 	foa->line++;
 	
 	return 0;

@@ -134,7 +134,8 @@ its handled internal.
 .B void foa_set_mode(struct libfoa *foa, int mode, int enable);
 Sets the current mode for escaping of special chars and whether to support
 named data. Turning of escaping will improve performance, but you must be
-sure that data items (text) will never contain any special chars '([])'.
+sure that data items (text) will never contain any special chars '([])'. See
+\fBMODES\fR section also.
 .TP 
 .B void foa_get_mode(struct libfoa *foa, int mode, int *enable);
 Get current mode for escaping and named data (hashes). The mode argument is
@@ -157,7 +158,26 @@ appended (only for memory buffer), otherwise the memory buffer is overwritten.
 The type is one of FOA_TYPE_XXX. Use NULL as name to write anonymous data. 
 Returns the encoded string on success and NULL on error.
 
+.SH MODES
+This section describes the contants that can be used as mode argument for
+foa_get_mode() and foa_set_mode().
+.TP
+.B FOA_MODE_ESCAPE
+Enable or disable escaping of special chars when encoding or decoding.
+Escaping of data is enabled by default.
+.TP 
+.B FOA_MODE_HASHES
+Controls whether named objects, arrays and data entities are allowed, this
+is the default.
+.TP
+.B FOA_MODE_SETERR
+Decode errors are always inlined in the entity structure by foa_next()
+and foa_scan(). Call foa_set_mode() using FOA_MODE_SETERR as mode argument
+to control whether the error message should be written to last error buffer
+as well so it can be fetched by calling foa_last_error(), this is the default.
+
 .SH ERRORS
+These functions is used to access the last error message.
 .TP 
 .B const char * foa_last_error(struct libfoa *foa);
 Get last error message.

@@ -50,6 +50,7 @@ int foa_init(struct libfoa *foa)
 	}
 	foa->escape = FOA_ENABLE_ESCAPE;
 	foa->hashes = FOA_ENABLE_HASHES;
+	foa->seterr = FOA_ENABLE_SETERR;
 	
 	return 0;
 }

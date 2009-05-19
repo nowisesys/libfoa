@@ -74,6 +74,9 @@ int read_memory(struct libfoa *foa)
 		foa->next = strchr(foa->curr + 1, '\n');
 	
 	decode_entity(foa);
+	if(foa->entity.type == FOA_TYPE_ERROR_MESSAGE && foa->seterr) {
+		logerr(&foa->errmsg, 0, foa->entity.data);
+	}
 	foa->line++;
 	
 	return 0;

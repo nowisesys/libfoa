@@ -97,12 +97,14 @@ extern "C" {
  */
 #define FOA_ENABLE_ESCAPE  1   /* escape special chars */
 #define FOA_ENABLE_HASHES  1   /* encode/decode named data */
+#define FOA_ENABLE_SETERR  1   /* set last error string for parse errors */
 
 /* 
  * Mode parameter for foa_get_mode() or foa_set_mode().
  */
-#define FOA_MODE_ESCAPE  1
-#define FOA_MODE_HASHES  2
+#define FOA_MODE_ESCAPE  1     /* escape special chars when encoding/decoding */
+#define FOA_MODE_HASHES  2     /* allow named objects, arrays and data entities */
+#define FOA_MODE_SETERR  3     /* set last error string for parse errors */
 
 /* 
  * Current scanned entity.
@@ -138,6 +140,7 @@ struct libfoa
 	char *errmsg;              /* last error message */
 	int escape;                /* enable escape of special chars */
 	int hashes;                /* enable hashed (named) data */
+	int seterr;                /* set last error string for parse errors */
 };
 
 /*
