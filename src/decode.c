@@ -102,6 +102,7 @@ void decode_entity(struct libfoa *foa)
 
 	foa->entity.line = foa->line;
 	foa->entity.name = NULL;
+	foa->entity.type = 0;
 
 	if(*foa->buff == '\n') {
 		foa->entity.data = "unexpected empty line";
@@ -155,7 +156,9 @@ void decode_entity(struct libfoa *foa)
 			foa->entity.type = FOA_TYPE_ERROR_MESSAGE;
 			return;
 		}
-		foa->entity.type = *foa->buff;
+		if(!foa->entity.type) {
+			foa->entity.type = *foa->buff;
+		}
 	}
 	
 	if(foa->escape && foa->entity.type == FOA_TYPE_DATA_ENTITY) {
