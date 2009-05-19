@@ -12,7 +12,7 @@ int main(void)
 	struct libfoa foa;
 	const struct foa_entity *ent;
 	
-	const char *data = "person = (\nname = adam\nage = 52\n)\n";
+	const char *data = "object = (\npersons = [\nname = Adam\nname = Bertil\n]\n)\n";
 	
 	if(foa_init(&foa) < 0) {
 		fprintf(stderr, "failed initilize libfoa\n");
@@ -23,13 +23,13 @@ int main(void)
 	while((ent = foa_next(&foa))) {
 		switch(ent->type) {
 		case FOA_TYPE_DATA_ENTITY:
-			printf("%s: %s\n", ent->name, ent->data);
+			printf("[type=%d] %s: %s\n", ent->type, ent->name, ent->data);
 			break;
 		default:
 			if(ent->name) {
-				printf("spec: %s: %s\n", ent->name, ent->data);
+				printf("[type=%d] spec: %s: %s\n", ent->type, ent->name, ent->data);
 			} else {
-				printf("spec: %s\n", ent->data);
+				printf("[type=%d] spec: %s\n", ent->type, ent->data);
 			}
 			break;
 		}
