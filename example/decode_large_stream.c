@@ -1,3 +1,7 @@
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "libfoa.h"
@@ -28,8 +32,7 @@ int main(int argc, char **argv)
 	else
 		num = 1000000;
 	
-	fs = tmpfile();
-	if(!fs) {
+	if((fs = tmpfile()) == NULL) {
 		fprintf(stderr, "failed open temporary file\n");
 		return 1;
 	}

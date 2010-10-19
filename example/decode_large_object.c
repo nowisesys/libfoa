@@ -1,3 +1,7 @@
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -32,7 +36,7 @@ int main(int argc, char **argv)
 		num = atoi(argv[1]);
 
 	size = strlen(objstr) * num + 13;
-	buff = malloc(size);
+	buff = (char *)malloc(size);
 	if(!buff) {
 		fprintf(stderr, "failed alloc memory");
 		return 1;

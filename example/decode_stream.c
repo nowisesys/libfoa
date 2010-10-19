@@ -1,3 +1,7 @@
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <stdio.h>
 #include "libfoa.h"
 
@@ -23,11 +27,10 @@ int main(int argc, char **argv)
 	if(argc > 1) {
 		file = argv[1];
 	} else {
-		file = "data.txt";
+		file = "C:\\Documents and Settings\\Anders\\My Documents\\Visual Studio 2008\\Projects\\libfoa\\win32\\vs2008\\example\\data.txt";
 	}
 	
-	fs = fopen(file, "r");
-	if(!fs) {
+	if((fs = fopen(file, "r")) == NULL) {
 		fprintf(stderr, "failed open %s for reading\n", file);
 		return 1;
 	}
