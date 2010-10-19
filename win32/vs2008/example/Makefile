@@ -26,7 +26,6 @@ LDFLAGS		= /link $(IMPORTLIB)
 
 IMPORTLIB	= ..\$(TARGET)\libfoa.lib
 IMPORTDLL	= ..\$(TARGET)\libfoa.dll
-# IMPORTPDB	= ..\$(TARGET)\libfoa.pdb
 
 EXAMPLES	= decode_callback.exe decode_error.exe decode_hashed_array.exe \
 	decode_hashed_object.exe decode_hashed_object_array.exe decode_large_object.exe \
@@ -37,7 +36,6 @@ EXAMPLES	= decode_callback.exe decode_error.exe decode_hashed_array.exe \
 
 all : $(EXAMPLES)
 	copy $(IMPORTDLL) $(DESTDIR)
-#	copy $(IMPORTPDB) $(DESTDIR)
 
 decode_callback.exe : {$(SRCDIR)}decode_callback.c
 decode_error.exe : {$(SRCDIR)}decode_error.c
