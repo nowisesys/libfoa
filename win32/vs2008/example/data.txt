@@ -1,0 +1,14 @@
+[
+(
+name = olle
+age = 64
+)
+(
+name = adam
+age = 46
+)
+(
+name = bertil
+age = 35
+)
+]
