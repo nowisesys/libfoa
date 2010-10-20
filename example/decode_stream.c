@@ -27,7 +27,7 @@ int main(int argc, char **argv)
 	if(argc > 1) {
 		file = argv[1];
 	} else {
-		file = "C:\\Documents and Settings\\Anders\\My Documents\\Visual Studio 2008\\Projects\\libfoa\\win32\\vs2008\\example\\data.txt";
+		file = "data.txt";
 	}
 	
 	if((fs = fopen(file, "r")) == NULL) {
