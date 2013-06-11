@@ -67,7 +67,7 @@ extern "C" {
 /* 
  * Library version.
  */
-#define FOA_VERSION 0x000608
+#define FOA_VERSION 0x000609
 #define FOA_MAJOR ((FOA_VERSION) & 0xff0000 >> 16)
 #define FOA_MINOR ((FOA_VERSION) & 0x00ff00 >> 8)
 #define FOA_REVIS ((FOA_VERSION) & 0x0000ff)
