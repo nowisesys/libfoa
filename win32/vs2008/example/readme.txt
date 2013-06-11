@@ -9,4 +9,4 @@ nmake clean		: clean up intermediate object files.
 nmake distclean	: clean up all, including example binaries.
 nmake rebuild	: clean and rebuild.
 
-// Anders Lövgren, 2010-10-19
+// Anders LÃ¶vgren, 2010-10-19

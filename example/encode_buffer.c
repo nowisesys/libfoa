@@ -25,8 +25,8 @@ int main(void)
 	}
 	
 	printf("%s", foa_start_object(&foa, 0));
-	printf("%s", foa_write_data(&foa, NULL, "Anders", 0));
-	printf("%s", foa_write_data(&foa, NULL, "Lövgren", 0));
+	printf("%s", foa_write_data(&foa, NULL, "John", 0));
+	printf("%s", foa_write_data(&foa, NULL, "Smith", 0));
 	printf("%s", foa_end_object(&foa, 0));
 	
 	if(foa_error_set(&foa)) {

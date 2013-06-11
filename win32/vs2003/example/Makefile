@@ -1,6 +1,6 @@
 # Makefile for building libfoa examples using Visual Studio 2003.
 #
-# Author: Anders Lövgren
+# Author: Anders LÃ¶vgren
 # Date:   2009-03-13
 
 TARGET  = release

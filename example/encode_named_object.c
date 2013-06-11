@@ -23,8 +23,8 @@ int main(void)
 	}
 	
 	printf("%s", foa_write(&foa, 0, FOA_TYPE_START_OBJECT, "person", NULL));
-	printf("%s", foa_write(&foa, 0, FOA_TYPE_DATA_ENTITY, NULL, "Anders"));
-	printf("%s", foa_write(&foa, 0, FOA_TYPE_DATA_ENTITY, NULL, "Lövgren"));
+	printf("%s", foa_write(&foa, 0, FOA_TYPE_DATA_ENTITY, NULL, "John"));
+	printf("%s", foa_write(&foa, 0, FOA_TYPE_DATA_ENTITY, NULL, "Smith"));
 	printf("%s", foa_write(&foa, 0, FOA_TYPE_END_OBJECT, NULL, NULL));
 	
 	if(foa_error_set(&foa)) {

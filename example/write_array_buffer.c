@@ -19,7 +19,7 @@ int main(void)
 		"adam", "bertil", "ceasar", "david", "erik", "fredrik", 
 		"gunnar", "henrik", "isak", "johan", "karl", "lars",
 		"martin", "niklas", "oskar", "peter", "quintus", "robert",
-		"sixten", "torbjörn", "urban", "viktor", "xerxes", "yngve",
+		"sixten", "torbjÃ¶rn", "urban", "viktor", "xerxes", "yngve",
 		NULL 
 	};
 	const char *res;

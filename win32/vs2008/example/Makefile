@@ -1,6 +1,6 @@
 # Makefile for building libfoa examples using Visual Studio 2008.
 #
-# Author: Anders Lövgren
+# Author: Anders LÃ¶vgren
 # Date:   2010-10-19
 
 TARGET  = debug

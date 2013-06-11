@@ -1,6 +1,6 @@
 # Makefile for building libfoa examples using Borland C++ 5.5
 #
-# Author: Anders Lövgren
+# Author: Anders LÃ¶vgren
 # Date:   2009-03-10
 
 CC = $(BCCDIR)\bin\bcc32

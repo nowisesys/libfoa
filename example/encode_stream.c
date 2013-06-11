@@ -26,8 +26,8 @@ int main(void)
 	foa_set_stream(&foa, stdout);   /* set output stream */
 	
 	foa_start_object(&foa, 0);
-	foa_write_data(&foa, NULL, "Anders", 0);
-	foa_write_data(&foa, NULL, "Lövgren", 0);
+	foa_write_data(&foa, NULL, "John", 0);
+	foa_write_data(&foa, NULL, "Smith", 0);
 	foa_end_object(&foa, 0);
 	
 	if(foa_error_set(&foa)) {

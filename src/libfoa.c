@@ -1,5 +1,5 @@
 /* Library implementing FOA - Fast Object and Array encoding.
- * Copyright (C) 2009 Anders Lövgren
+ * Copyright (C) 2009 Anders LÃ¶vgren
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

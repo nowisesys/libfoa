@@ -2,6 +2,8 @@ Version 0.6.9 (2013-06-11):
 
 	* Fixed build issues using current autoconf, automake and libtool.
 	
+	* Converted project to UTF-8 encoding.
+	
 Version 0.6.8 (2009-05-19):
 
 	* Fixed bug where named objects and arrays got their type set to

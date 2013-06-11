@@ -19,7 +19,7 @@
  *     const char *lname;    // last name
  * };
  * 
- * struct person myself = { "Anders", "Lövgren" };
+ * struct person myself = { "John", "Smith" };
  */
 
 int main(void)
@@ -32,8 +32,8 @@ int main(void)
 	}
 	
 	printf("%s", foa_start_object(&foa, 0));
-	printf("%s", foa_write_data(&foa, "fname", "Anders", 0));
-	printf("%s", foa_write_data(&foa, "lname", "Lövgren", 0));
+	printf("%s", foa_write_data(&foa, "fname", "John", 0));
+	printf("%s", foa_write_data(&foa, "lname", "Smith", 0));
 	printf("%s", foa_end_object(&foa, 0));
 	
 	if(foa_error_set(&foa)) {
