@@ -10,7 +10,7 @@ BCC32OPTS = -ps -WD -WR -w-pia- -w-par- -5
 CPPFLAGS  = -DWIN32 -DHAVE_CONFIG_H -D_BCC55 -DLIBFOA_EXPORTS -I$(SRCDIR) -I.
 CFLAGS    = -O2 $(CPPFLAGS) $(BCC32OPTS)
 LDFLAGS   = -x -c -aa -Tpd -Gi -Gl -OS -r -m $(LDGECKO)
-LDGECKO   = -GC"Author: Anders Loevgren" -GC"Company: QNET" -GC"Released: 2009-03-10" 
+LDGECKO   = -GC"Author: Anders Loevgren" -GC"Company: Nowise Systems" -GC"Released: 2009-03-10" 
 
 IMPORTLIB = import32.lib cw32i.lib
 
