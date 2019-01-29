@@ -1,3 +1,9 @@
+Version 0.6.10 (2019-01-29):
+
+        * Migrated to GIT.
+
+        * New maintainer address, bug report and homepage URL.
+
 Version 0.6.9 (2013-06-11):
 
 	* Fixed build issues using current autoconf, automake and libtool.
