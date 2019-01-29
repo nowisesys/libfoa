@@ -1,0 +1,5 @@
+* linguist-detectable=false
+Makefile.am linguist-vendored
+Makefile.in linguist-vendored
+src/* linguist-detectable=true
+example/* linguist-detectable=true
