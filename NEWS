@@ -1,3 +1,7 @@
+Version 0.6.11 (2019-01-29):
+
+        * Update autoconf files (autoreconf -i)
+
 Version 0.6.10 (2019-01-29):
 
         * Migrated to GIT.

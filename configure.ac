@@ -2,12 +2,11 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
-AC_INIT([libfoa], [0.6.10], [andlov@nowise.se])
-AM_INIT_AUTOMAKE([libfoa], [0.6.10])
+AC_INIT([libfoa], [0.6.11], [andlov@nowise.se])
+AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/libfoa.c])
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_MACRO_DIR([m4])
-ACLOCAL_AMFLAGS -I m4
 
 # Checks for programs.
 AC_PROG_CC

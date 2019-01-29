@@ -1,4 +1,4 @@
-INCLUDES = -I../src
+AM_CPPFLAGS = -I../src
 AM_LDFLAGS  = ../src/.libs/libfoa.a
 
 noinst_PROGRAMS = init_libfoa decode_simple_array decode_hashed_array \
